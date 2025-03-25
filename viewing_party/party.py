@@ -56,7 +56,7 @@ def get_most_watched_genre(user_data):
             watched_genres_dict[genre] += 1
     
     max_freq = 0
-    max_genre = ""
+    max_genre = None
     for genre, freq in watched_genres_dict.items():
         if freq > max_freq:
             max_freq = freq
@@ -94,9 +94,28 @@ def get_friends_unique_watched(user_data):
                 ):
                     friends_unique_movies.append(each_movie)
     return friends_unique_movies
+
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
+
+def get_available_recs(user_data):
+    recommended_movies = []
+
+    subscriptions = user_data["subscriptions"]
+    friends_watched_list = []
+
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
+            friends_watched_list.append(movie)
+
+    for movie in friends_watched_list:
+        if movie not in user_data["watched"] and movie not in recommended_movies and movie["host"] in user_data["subscriptions"]:
+            recommended_movies.append(movie)
+
+    return recommended_movies
+
+    
 
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
