@@ -45,14 +45,11 @@ def get_most_watched_genre(user_data):
     for movie in user_data["watched"]:
         watched_genres_list.append(movie["genre"])
 
-    watched_genres_set = set(watched_genres_list)
     watched_genres_dict = {}
-    for genre in watched_genres_set:
-        watched_genres_dict[genre] = 0
-    
     for genre in watched_genres_list:
-        if genre in watched_genres_dict.keys():
-            watched_genres_dict[genre] += 1
+        if genre not in watched_genres_dict:
+            watched_genres_dict[genre] = 0
+        watched_genres_dict[genre] += 1
     
     max_freq = 0
     max_genre = None
@@ -62,7 +59,6 @@ def get_most_watched_genre(user_data):
             max_genre = genre
 
     return max_genre
-
 
 # -----------------------------------------
 # ------------- WAVE 3 --------------------
