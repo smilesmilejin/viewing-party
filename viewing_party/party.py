@@ -114,26 +114,9 @@ def get_new_rec_by_genre (user_data):
     rec_movies = []
     if (not user_data) or (not user_data['watched']) :
         return rec_movies
-    genre_frequency = {}
-    # Create a dictionary that maps each genre to its frequency.
-    for each_movie in user_data['watched']:
-        if each_movie['genre'] not in genre_frequency:
-            genre_frequency[each_movie['genre']] = 1
-            continue
-        genre_frequency[each_movie['genre']] += 1
 
-    # Find the user's most frequent genres; if there's a tie, choose the first one.
-    first_time = True
-    for genre, score in genre_frequency.items():
-        if first_time:
-            max_score = score
-            most_popular_genre = genre
-            first_time = False
-            continue
-
-        if score > max_score:
-            most_popular_genre = genre
-
+    most_popular_genre = get_most_watched_genre(user_data)
+    
     # Append the movie to the list if the user's friends have watched it, 
     # and if its genre matches the most popular genre, and the user hasn't seen it.
     for friends_watched in user_data['friends']:
