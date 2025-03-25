@@ -102,7 +102,6 @@ def get_friends_unique_watched(user_data):
 def get_available_recs(user_data):
     recommended_movies = []
 
-    subscriptions = user_data["subscriptions"]
     friends_watched_list = []
 
     for friend in user_data["friends"]:
