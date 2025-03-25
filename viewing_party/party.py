@@ -31,7 +31,31 @@ def watch_movie(user_data, title):
 # ------------- WAVE 3 --------------------
 # -----------------------------------------
 
-        
+def get_unique_watched(user_data):
+    unique_movies = []
+    for user_watched in user_data['watched']:
+        user_has_watched = True
+        for friends_watched in user_data['friends']:
+            for each_friend_watched in friends_watched.values():
+                if user_watched in each_friend_watched:
+                    user_has_watched = False
+                    continue
+        if user_has_watched:
+            unique_movies.append(user_watched)
+    return unique_movies
+
+def get_friends_unique_watched(user_data):
+
+    friends_unique_movies= []
+    for friends_watched in user_data['friends']:
+        for each_friend_watched in friends_watched.values():
+            for each_movie in each_friend_watched:
+                if (
+                (each_movie not in user_data['watched']) and 
+                (each_movie not in friends_unique_movies)
+                ):
+                    friends_unique_movies.append(each_movie)
+    return friends_unique_movies
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
 # -----------------------------------------
@@ -40,3 +64,6 @@ def watch_movie(user_data, title):
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
 
+def get_new_rec_by_genre(user_data):
+    # return [{'genre': 'Fantasy', 'host': 'hulu', 'rating': 4.0, 'title': 'The Programmer: An Unexpected Stack Trace'}]
+    pass
