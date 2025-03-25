@@ -34,13 +34,13 @@ def watch_movie(user_data, title):
 def get_unique_watched(user_data):
     unique_movies = []
     for user_watched in user_data['watched']:
-        user_has_watched = True
+        no_friend_has_watched = True
         for friends_watched in user_data['friends']:
             for each_friend_watched in friends_watched.values():
                 if user_watched in each_friend_watched:
-                    user_has_watched = False
+                    no_friend_has_watched = False
                     continue
-        if user_has_watched:
+        if no_friend_has_watched:
             unique_movies.append(user_watched)
     return unique_movies
 
@@ -72,7 +72,6 @@ def get_new_rec_by_genre (user_data):
     genre_frequency = {}
     # Create a dictionary that maps each genre to its frequency.
     for each_movie in user_data['watched']:
-        print(each_movie['genre'])
         if each_movie['genre'] not in genre_frequency:
             genre_frequency[each_movie['genre']] = 1
             continue
